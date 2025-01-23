@@ -44,3 +44,7 @@
 
 .iconbox{font-size: 0; line-height: 0}
 .iconbox svg{width: 22px; height: 22px; display: inline-block; fill: var(--color-white);}
+
+.suggestionsec{box-shadow: 0px 4px 12px rgb(207 207 207 / 50%); margin: auto 0; border-radius: 6px; padding: 10px 20px; margin-top: 10px;}
+.suggestionsec ul{margin: 0 !important; display: flex !important; flex-flow: column nowrap; gap: 10px !important;}
+.suggestionsec ul li{cursor: pointer;}
