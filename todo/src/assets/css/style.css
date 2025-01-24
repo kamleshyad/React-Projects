@@ -48,3 +48,10 @@
 .suggestionsec{box-shadow: 0px 4px 12px rgb(207 207 207 / 50%); margin: auto 0; border-radius: 6px; padding: 10px 20px; margin-top: 10px;}
 .suggestionsec ul{margin: 0 !important; display: flex !important; flex-flow: column nowrap; gap: 10px !important;}
 .suggestionsec ul li{cursor: pointer;}
+ 
+.edittasksec .editform{margin-top: 30px;}
+.edittasksec ul{display: grid ; grid-template-columns: auto 140px; gap: 20px;}
+.edittasksec ul li input[type="text"] { padding: 10px 15px; width: 100%; box-sizing: border-box; border: 0; box-shadow: 0px 2px 12px rgb(207 207 207 / 50%); border-radius: 8px; font-size: 20px; font-weight: 500; line-height: 26px; color: var(--color-black); }
+.edittasksec ul li input[type="text"]::placeholder{font-size: 16px; font-weight: 500; color: var(--color-black);}
+.edittasksec ul li input[type="text"]:focus{outline: none;}
+.edittasksec ul li button { width: 100%; border: 0; background: var(--color-blue); border-radius: 6px; font-size: 18px; font-weight: 500; line-height: 19px; color: var(--color-white); padding: 14px; box-sizing: border-box; cursor: pointer; transition: all 0.3s linear; }

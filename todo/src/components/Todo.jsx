@@ -2,13 +2,25 @@ import Swal from 'sweetalert2';
 import { useState, useReducer, useEffect} from 'react';
 
 import { TaskList } from "./TaskList";
+import { Modal } from '../parts/modal/Modal';
+import { EditTask } from './EditTask';
 
 const initialState = JSON.parse(localStorage.getItem('tasks')) ?? [];
 
 const reducer = (state, action) => {
     switch(action.type){
         case "Add-Task" :
-            return [...state, handleAddtask(action.payload)]
+            return [...state, handleAddtask(action.payload)];
+        case "Delete-Task" :
+            return state.filter((task) => {
+                return(
+                    task.id !== action.payload.id
+                )
+            })
+        case "Status-Task" :
+            return state.map((task) => 
+                    task.id === action.payload.id ? {...task, status : true} : task
+            )
         default :
             return state;
     }
@@ -27,6 +39,8 @@ export const Todo = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [taskName, setTaskname] = useState("");
     const [suggestion, setSuggestion] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
+    const [currentTask, setCurrentTask] = useState("");
 
     useEffect(() => {
         localStorage.setItem("tasks", JSON.stringify(state))
@@ -76,13 +90,21 @@ export const Todo = () => {
             return setTaskname("");
         }
 
-
         dispatch({type: "Add-Task", payload : taskName});
         Swal.fire({
             icon: "success",
             text: "Task Name added Successfully!",
         });
         setTaskname("");
+    }
+
+    const handleCurrentTask = (currentData) => {
+        setCurrentTask(currentData);
+        setIsOpen(true);
+    }
+
+    const handleEdittask = (updatedTaskname) => {
+        dispatch({type: "Edit-Task", payload: updatedTaskname})
     }
 
     return (
@@ -111,9 +133,16 @@ export const Todo = () => {
                             </li>
                         </ul>
                     </form>
-                    <TaskList taskData={state}/>
+                    <TaskList taskData={state} dispatch={dispatch} getCurrentTask={(currentData) => handleCurrentTask(currentData) }/>
                 </div>
             </div>
+            {
+                isOpen && (
+                    <Modal onClose={() => setIsOpen(false)}>
+                        <EditTask task={currentTask} getupdatedData={(updatedTaskname) => handleEdittask(updatedTaskname)}/>
+                    </Modal>
+                )
+            }
         </div>
     )
 }
