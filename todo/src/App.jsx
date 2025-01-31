@@ -1,9 +1,9 @@
-import { Todo } from "./components/Todo"
+import { Addtask } from "./components/Addtask";
 
 const App = () => {
   return (
-    <Todo />
+    <Addtask />
   )
 }
 
-export default App
+export default App;
