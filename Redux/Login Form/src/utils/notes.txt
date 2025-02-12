@@ -1,0 +1,6 @@
+1) What is createAsyncThunk ?
+
+a) createAsyncThunk is used in Redux Toolkit to handle asynchronous operations, such as making API calls, in a structured way. It simplifies handling side effects by automatically managing the request lifecycle (pending, fulfilled, and rejected states).
+b) It allows you to perform asynchronous actions like fetching data from an API or handling authentication.
+c) It generates pending, fulfilled, and rejected action types, reducing the need for manually handling these states.
+d) It allows you to return errors and reject API calls cleanly using thunkAPI.rejectWithValue().
