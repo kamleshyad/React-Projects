@@ -4,18 +4,18 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const API_URL = import.meta.env.VITE_API_URL;
 
 // Async thunk for login
-export const loginUser = createAsyncThunk("auth/loginUser", async ({ email, password }, thunkAPI) => {
+export const loginUser = createAsyncThunk("auth/loginUser", async ({ username, password }, thunkAPI) => {
   try {
     const response = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username, password }),
     });
 
     const data = await response.json();
-    if (data.access_token) {
-      localStorage.setItem("token", data.access_token); // Store token
-      return data.access_token; // Return token
+    if (data.token) {
+      localStorage.setItem("token", data.token); // Store token
+      return data.token; // Return token
     } else {
       return thunkAPI.rejectWithValue(data); // Reject if login fails
     }

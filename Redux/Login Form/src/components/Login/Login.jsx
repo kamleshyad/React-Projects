@@ -11,7 +11,7 @@ export const Login = () => {
   const { loading, error } = useSelector((state) => state.auth);
 
   const [formValue, setFormValue] = useState({
-    email: "", // Use email instead of username
+    username: "", // Use email instead of username
     password: "",
   });
 
@@ -28,10 +28,10 @@ export const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    const { email, password } = formValue;
+    const { username, password } = formValue;
 
     // Validate inputs
-    if (!email) {
+    if (!username) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -50,7 +50,7 @@ export const Login = () => {
     }
 
     // Dispatch login action (send email and password to API)
-    dispatch(loginUser({ email, password }));
+    dispatch(loginUser({ username, password }));
   };
 
   // Handle error message if login fails
@@ -76,9 +76,9 @@ export const Login = () => {
             <ul className="space-y-5">
               <li>
                 <input
-                  type="email"  // Use type="email" for email input
-                  name="email"  // Use email instead of username
-                  placeholder="Email"
+                  type="text"  // Use type="email" for email input
+                  name="username"  // Use email instead of username
+                  placeholder="Username"
                   className="w-full p-2 rounded"
                   value={formValue.email} // Bind value to formValue
                   onChange={handleOnChange}
@@ -86,7 +86,7 @@ export const Login = () => {
               </li>
               <li>
                 <input
-                  type="password"
+                  type="text"
                   name="password"
                   placeholder="Password"
                   className="w-full p-2 rounded"
