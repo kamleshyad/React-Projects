@@ -13,7 +13,7 @@ export const loginUserApi = async (credentials) => {
             throw new Error(errorData.message || "Invalid credentials");
           }
       
-        return await response.json(); // { token, user }
+        return await response.json();
 
     } catch(error) {
         console.error("Login Error:", error.message);

@@ -4,6 +4,7 @@ import { loginUserApi } from "../utils/Api";
 export const loginUser = createAsyncThunk('auth/loginUser', async (credentials, { rejectWithValue }) => {
     try{
         const data = await loginUserApi(credentials);
+        console.log("Data", data)
         return data;
     } catch(error) {
         return rejectWithValue(error.message);
@@ -37,7 +38,7 @@ export const AuthSlice = createSlice({
         builder.addCase(loginUser.fulfilled, (state, action) => {
             console.log("Login Successful! Data received:", action.payload);
             state.loading = false;
-            state.username = action.payload.username;
+            state.username = action.payload.userData.username;
             state.token = action.payload.token;
             state.isAuthenticated = true;
             localStorage.setItem("token", action.payload.token);

@@ -28,7 +28,6 @@ export const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try{
             const result = await dispatch(loginUser(formData)).unwrap();
             if (result.token) {
