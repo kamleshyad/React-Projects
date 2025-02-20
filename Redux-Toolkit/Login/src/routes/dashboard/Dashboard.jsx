@@ -1,23 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../features/AuthSlice";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
 
 export const Dashboard = () => {
 
-    const {username} = useSelector((state) => state.auth);
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
 
-    const handleLogout = () => {
-        dispatch(logout());
-        navigate("/login");
-    };
 
-    return(
+
+    return (
         <div className="p-5">
-            <h1>Welcome, {username.charAt(0).toUpperCase() + username.slice(1)}</h1>
-            <button onClick={handleLogout} className="bg-red-500 text-white p-2">
+            <h1>Welcome, Admin</h1>
+            <button className="bg-red-500 text-white p-2">
                 Logout
             </button>
         </div>

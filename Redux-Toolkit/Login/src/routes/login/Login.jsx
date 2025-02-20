@@ -1,43 +1,40 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-
-import { loginUser } from "../../features/AuthSlice";
+import { LoginUserApi } from "../../utils/Api";
 
 export const Login = () => {
 
-    const [ formData, setFormData ] = useState({username : '', password : ''});
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { loading, error } = useSelector((state) => state.auth);
+    const [userCredentials, setUserCredentials] = useState({username : "", password : ""});
 
-    // Getting the data from input field
+    // Logic for form input data 
 
-    const handleOnChange = (e) => {
-
+    const handleOnchange = (e)=> {
         const name = e.target.name;
         const value = e.target.value;
 
-        setFormData((prevData) => ({
-            ...prevData,
-            [name] : value
+        setUserCredentials((preVal) => ({
+            ...preVal,
+            [name] : value,
         }))
     }
 
-    // handling form data
+    // Destructuring userCredentials
 
-    const handleSubmit = async (e) => {
+    const {username, password} = userCredentials
+
+    // Logic for submitting form 
+
+    const handleSubmit = async(e)=> {
         e.preventDefault();
+
         try{
-            const result = await dispatch(loginUser(formData)).unwrap();
-            if (result.token) {
-                navigate("/");
-            }
-        } catch (err) {
-            console.error("Login failed:", err);
-            alert(err); // Display error
+            const userData = await LoginUserApi(userCredentials);
+            console.log("Login Successful:", userData);
+
+        } catch (error){
+            console.error("Login Failed:", error.message);
         }
     }
+
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-300 to-purple-400">
@@ -45,14 +42,14 @@ export const Login = () => {
                 <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">Welcome Back!</h2>
                 <p className="text-center text-gray-600 mb-4">Please login to your account</p>
                 <p className="text-red-500 text-center"></p>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={(e) => handleSubmit(e)}>
                     <div className="mb-4">
                         <label className="block text-gray-700 mb-2 font-semibold">Username</label>
                         <input
                             type="text"
                             name="username"
-                            value={formData.username}
-                            onChange={handleOnChange}
+                            value={username}
+                            onChange={handleOnchange}
                             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500 outline-0 bg-gray-100"
                             placeholder="Enter your username"
                             required
@@ -63,8 +60,8 @@ export const Login = () => {
                         <input
                             type="password"
                             name="password"
-                            value={formData.password}
-                            onChange={handleOnChange}
+                            value={password}
+                            onChange={handleOnchange}
                             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500 outline-0 bg-gray-100"
                             placeholder="Enter your password"
                             required
@@ -81,5 +78,5 @@ export const Login = () => {
                 </p>
             </div>
         </div>
-    );
-};
+    )
+}
