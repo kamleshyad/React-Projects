@@ -1,24 +1,26 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const LoginUserApi = async(credentials)=> {
-    try{
-        const response = await fetch(`${API_URL}/auth/login`,{
-            method : "POST",
-            headers : {"Content-Type" : "application/json"},
-            body : JSON.stringify(credentials)
-        })
+export const LoginUserApi = async (credentials) => {
+    try {
+        const response = await fetch(`${API_URL}/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(credentials),
+        });
 
-        const data = await response.json();
+        const data = await response.json(); 
 
-        if(data.status === false){
-            throw new Error(data.message);
+        if (response.status === 400) {
+            throw new Error("Invalid Username and Password"); 
         }
 
-        console.log(data)
+        if (!response.ok) {
+            throw new Error(`HTTP Error! Status: ${response.status}`);
+        }
 
-        return data
-        
-    } catch (error){
-        throw new Error(error.message || "Something went wrong!");
+        return data; 
+
+    } catch (error) {
+        throw error;
     }
-}
+};

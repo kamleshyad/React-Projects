@@ -1,7 +1,16 @@
 import { useState } from "react";
-import { LoginUserApi } from "../../utils/Api";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { loginUser } from "../../features/AuthSlice";
 
 export const Login = () => {
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const {token} = useSelector((state) => state.auth);
+    
 
     const [userCredentials, setUserCredentials] = useState({username : "", password : ""});
 
@@ -23,18 +32,21 @@ export const Login = () => {
 
     // Logic for submitting form 
 
-    const handleSubmit = async(e)=> {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
-        try{
-            const userData = await LoginUserApi(userCredentials);
-            console.log("Login Successful:", userData);
-
-        } catch (error){
-            console.error("Login Failed:", error.message);
+    
+        try {
+            const userData = await dispatch(loginUser(userCredentials)).unwrap();
+            if(userData?.token){
+                localStorage.setItem('token', userData?.token)
+                navigate('/', {replace : true})
+            }
+    
+        } catch (error) {
+            console.error("Login Failed:", error);
         }
-    }
-
+    };
+    
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-300 to-purple-400">
