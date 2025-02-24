@@ -1,49 +1,59 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+import { replace, useNavigate } from "react-router-dom";
 
 import { loginUser } from "../../features/AuthSlice";
 
 export const Login = () => {
-
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-
-    const {token} = useSelector((state) => state.auth);
     
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const [userCredentials, setUserCredentials] = useState({username : "", password : ""});
+    const {isToken} = useSelector((state) => state.auth);
+    console.log("token", isToken);
 
-    // Logic for form input data 
+    const [userCredentials, setUserCrederntials] = useState({username: '', password: ''});
 
-    const handleOnchange = (e)=> {
+    /* {Getting value from input} */
+    const handleOnChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
 
-        setUserCredentials((preVal) => ({
+        setUserCrederntials((preVal) => ({
             ...preVal,
-            [name] : value,
+            [name] : value
         }))
     }
 
-    // Destructuring userCredentials
-
-    const {username, password} = userCredentials
-
-    // Logic for submitting form 
-
+    /* {Destructuring userCredentials} */
+    const {username, password} = userCredentials;
+    
+    /* Sending data */
     const handleSubmit = async (e) => {
         e.preventDefault();
     
+        const trimmedUsername = username.trim().replace(/\s+/g, '');
+        const trimmedPassword = password.trim().replace(/\s+/g, '');
+    
+        if (!trimmedUsername) {
+            toast.error("Username cannot be empty!", { position: "top-right", autoClose: 3000 });
+            return;
+        } 
+        if (!trimmedPassword) {
+            toast.error("Password cannot be empty!", { position: "top-right", autoClose: 3000 });
+            return;
+        }
+    
+        const userCredentials = { username: trimmedUsername, password: trimmedPassword };
+    
         try {
             const userData = await dispatch(loginUser(userCredentials)).unwrap();
-            if(userData?.token){
-                localStorage.setItem('token', userData?.token)
+            if(isToken){
                 navigate('/', {replace : true})
             }
-    
         } catch (error) {
-            console.error("Login Failed:", error);
+            toast.error(error || "Login failed!", { position: "top-right", autoClose: 3000 });
         }
     };
     
@@ -54,17 +64,16 @@ export const Login = () => {
                 <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">Welcome Back!</h2>
                 <p className="text-center text-gray-600 mb-4">Please login to your account</p>
                 <p className="text-red-500 text-center"></p>
-                <form onSubmit={(e) => handleSubmit(e)}>
+                <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block text-gray-700 mb-2 font-semibold">Username</label>
                         <input
                             type="text"
                             name="username"
                             value={username}
-                            onChange={handleOnchange}
+                            onChange={handleOnChange}
                             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500 outline-0 bg-gray-100"
                             placeholder="Enter your username"
-                            required
                         />
                     </div>
                     <div className="mb-4">
@@ -73,10 +82,9 @@ export const Login = () => {
                             type="password"
                             name="password"
                             value={password}
-                            onChange={handleOnchange}
+                            onChange={handleOnChange}
                             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500 outline-0 bg-gray-100"
                             placeholder="Enter your password"
-                            required
                         />
                     </div>
                     <button
@@ -89,6 +97,7 @@ export const Login = () => {
                     Don't have an account? <a href="#" className="text-purple-500 font-semibold hover:underline">Sign up</a>
                 </p>
             </div>
+            <ToastContainer draggable theme="light" />
         </div>
     )
 }

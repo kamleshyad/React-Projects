@@ -1,43 +1,52 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { loginUser } from "../../features/AuthSlice";
 
 export const Login = () => {
 
-    const [ formData, setFormData ] = useState({username : '', password : ''});
-    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { loading, error } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
 
-    // Getting the data from input field
+    const {token} = useSelector((state) => state.auth);
+    
 
-    const handleOnChange = (e) => {
+    const [userCredentials, setUserCredentials] = useState({username : "", password : ""});
 
+    // Logic for form input data 
+
+    const handleOnchange = (e)=> {
         const name = e.target.name;
         const value = e.target.value;
 
-        setFormData((prevData) => ({
-            ...prevData,
-            [name] : value
+        setUserCredentials((preVal) => ({
+            ...preVal,
+            [name] : value,
         }))
     }
 
-    // handling form data
+    // Destructuring userCredentials
+
+    const {username, password} = userCredentials
+
+    // Logic for submitting form 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try{
-            const result = await dispatch(loginUser(formData)).unwrap();
-            if (result.token) {
-                navigate("/");
+    
+        try {
+            const userData = await dispatch(loginUser(userCredentials)).unwrap();
+            if(userData?.token){
+                localStorage.setItem('token', userData?.token)
+                navigate('/', {replace : true})
             }
-        } catch (err) {
-            console.error("Login failed:", err);
-            alert(err); // Display error
+    
+        } catch (error) {
+            console.error("Login Failed:", error);
         }
-    }
+    };
+    
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-300 to-purple-400">
@@ -45,14 +54,14 @@ export const Login = () => {
                 <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">Welcome Back!</h2>
                 <p className="text-center text-gray-600 mb-4">Please login to your account</p>
                 <p className="text-red-500 text-center"></p>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={(e) => handleSubmit(e)}>
                     <div className="mb-4">
                         <label className="block text-gray-700 mb-2 font-semibold">Username</label>
                         <input
                             type="text"
                             name="username"
-                            value={formData.username}
-                            onChange={handleOnChange}
+                            value={username}
+                            onChange={handleOnchange}
                             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500 outline-0 bg-gray-100"
                             placeholder="Enter your username"
                             required
@@ -63,8 +72,8 @@ export const Login = () => {
                         <input
                             type="password"
                             name="password"
-                            value={formData.password}
-                            onChange={handleOnChange}
+                            value={password}
+                            onChange={handleOnchange}
                             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500 outline-0 bg-gray-100"
                             placeholder="Enter your password"
                             required
@@ -81,5 +90,5 @@ export const Login = () => {
                 </p>
             </div>
         </div>
-    );
-};
+    )
+}
