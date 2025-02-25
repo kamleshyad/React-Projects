@@ -1,0 +1,57 @@
+*{margin: 0; padding: 0; box-sizing: border-box; font-family: "Jost", system-ui;}
+
+.container{width: min(1290px, 96%); margin: 0 auto;}
+.reset{padding: 0; margin: 0; list-style: none;}
+
+:root{
+    --color-purple : #5a189a;
+    --color-blue : #4361ee;
+    --color-darkblue: #2b4adb;
+    --color-white : #fff;
+    --color-black : #001524;
+    --color-red: #d62828;
+    --color-darkred : #b10707;
+    --color-green : #6a994e;
+    --color-darkgreen : #367411;
+}
+
+.todosec{padding: 50px 0; position: relative;}
+.todosec .container{width: min(980px, 96%); }
+.todosec .todowrap{padding: 30px 20px; box-sizing: border-box; box-shadow: 0px 4px 12px rgb(207 207 207 / 50%); margin: auto 0; border-radius: 12px; overflow: hidden;}
+.todosec h1{font-size: 32px; color: var(--color-purple); text-align: center; line-height: 36px; font-weight: 600;}
+.todosec .todoform ul{margin: 30px 0; display: grid; grid-template-columns: auto 120px; gap: 30px;}
+.todosec .todoform ul li input[type="text"]{padding: 10px 15px; width: 100%; box-sizing: border-box; border: 0; box-shadow: 0px 2px 12px rgb(207 207 207 / 50%); border-radius: 8px; font-size: 18px; font-weight: 500; line-height: 26px; color: var(--color-black);}
+.todosec .todoform ul li input[type="text"]::placeholder{font-size: 16px; font-weight: 500; color: var(--color-black);}
+.todosec .todoform ul li input[type="text"]:focus{outline: none;}
+.todosec .todoform ul li button{width: 100%; border: 0; background: var(--color-blue); border-radius: 6px; font-size: 18px; font-weight: 500; line-height: 19px; color: var(--color-white); padding: 14px; box-sizing: border-box; cursor: pointer; transition: all 0.3s linear;}
+.todosec .todoform ul li button:hover{box-shadow: 0px 2px 12px rgb(152 169 247); background: var(--color-darkblue);}
+
+.tasklist ul{display: flex; font-size: 0; flex-flow: column wrap; gap: 20px;}
+.tasklist ul li{display: flex; flex-flow: row nowrap; gap: 20px; align-items: center; padding: 12px; border-radius: 8px; box-shadow: 0px 2px 12px rgb(207 207 207 / 50%);}
+.tasklist ul li.red{border: 1px solid var(--color-red);}
+.tasklist ul li.green{border: 1px solid var(--color-green);}
+.tasklist .taskleftsec{width: calc(100% - 188px);}
+.tasklist .taskleftsec p{font-size: 22px; color: var(--color-black); font-weight: 500; line-height: 24px; letter-spacing: 0.4px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;}
+.tasklist .taskrightsec{width: 168px;}
+.tasklist .taskrightsec ul{display: flex; flex-flow: row nowrap; gap: 15px;}
+.tasklist .taskrightsec ul li{padding: 0; border-radius: 0; box-shadow: 0;}
+.tasklist .taskrightsec button{border: 0; background: var(--color-green); color: var(--color-white); padding: 10px 12px; font-size: 16px; font-weight: 500; line-height: 19px; color: var(--color-white); letter-spacing: 0.5px; border-radius: 6px; cursor: pointer; transition: all 0.3s linear;  display: inline-flex ; align-items: center;}
+.tasklist .taskrightsec button.complete:hover{background: var(--color-darkgreen);}
+.tasklist .taskrightsec button.delete{background: var(--color-red);}
+.tasklist .taskrightsec button.delete:hover{background: var(--color-darkred);}
+.tasklist .taskrightsec button.edit{background: var(--color-blue);}
+.tasklist .taskrightsec button.edit:hover{background: var(--color-darkblue);}
+
+.iconbox{font-size: 0; line-height: 0}
+.iconbox svg{width: 22px; height: 22px; display: inline-block; fill: var(--color-white);}
+
+.suggestionsec{box-shadow: 0px 4px 12px rgb(207 207 207 / 50%); margin: auto 0; border-radius: 6px; padding: 10px 20px; margin-top: 10px;}
+.suggestionsec ul{margin: 0 !important; display: flex !important; flex-flow: column nowrap; gap: 10px !important;}
+.suggestionsec ul li{cursor: pointer;}
+ 
+.edittasksec .editform{margin-top: 30px;}
+.edittasksec ul{display: grid ; grid-template-columns: auto 140px; gap: 20px;}
+.edittasksec ul li input[type="text"] { padding: 10px 15px; width: 100%; box-sizing: border-box; border: 0; box-shadow: 0px 2px 12px rgb(207 207 207 / 50%); border-radius: 8px; font-size: 20px; font-weight: 500; line-height: 26px; color: var(--color-black); }
+.edittasksec ul li input[type="text"]::placeholder{font-size: 16px; font-weight: 500; color: var(--color-black);}
+.edittasksec ul li input[type="text"]:focus{outline: none;}
+.edittasksec ul li button { width: 100%; border: 0; background: var(--color-blue); border-radius: 6px; font-size: 18px; font-weight: 500; line-height: 19px; color: var(--color-white); padding: 14px; box-sizing: border-box; cursor: pointer; transition: all 0.3s linear; }

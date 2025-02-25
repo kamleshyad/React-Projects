@@ -1,0 +1,22 @@
+*{margin: 0; padding: 0; box-sizing: border-box; font-family: "Jost", system-ui;}
+
+.container{width: min(1290px, 96%); margin: 0 auto;}
+
+:root{
+    --color-purple : #5a189a;
+    --color-blue : #4361ee;
+    --color-darkblue: #2b4adb;
+    --color-white : #fff;
+    --color-black : #001524;
+    --color-red: #d62828;
+    --color-darkred : #b10707;
+    --color-green : #6a994e;
+    --color-darkgreen : #367411;
+}
+
+.counterbox{width: min(568px, 100%); margin: 50px auto; text-align: center; box-shadow: 0px 5px 12px rgba(0,0,0, 0.5); padding: 20px; border-radius: 8px;}
+.countersec .counterbtns{margin-top: 20px; display: flex; flex-flow: row nowrap; gap: 20px; justify-content: center;}
+.countersec .counterbtns button { padding: 7px 15px; font-size: 16px; color: #000; font-weight: 500; line-height: normal; border: 0; border-radius: 5px; cursor: pointer; letter-spacing: 0.5px; }
+button.incre{background: #a2d2ff;}
+button.decre{background: #a7c957;}
+button.reset{background: #d58936;}
