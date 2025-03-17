@@ -5,9 +5,7 @@ export const Counter = () => {
     const {inc, count, dec, reset} = useCounter();
 
     const clearPersistedState = () => {
-        useCounter.persist.clearStorage(); // Remove localStorage data
-  useCounter.getState().reset(); // Reset Zustand state
-  useCounter.setState({}, true);
+        localStorage.clear();
       };
     return (
         <div>
