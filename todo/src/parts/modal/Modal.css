@@ -1,3 +1,0 @@
-.modalsec{position: absolute; top: 50%; left: 50%; right: 0; bottom: 0; transform: translate(-50%, -50%); background: var(--color-white); padding: 20px; border-radius: 12px; width: min(800px, 100%); background: rgba(255, 255, 255, 0.75); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);}
-.modalsec .modalbox{position: relative;}
-.modalsec button.closebtn{position: absolute; top: -35px; right: -35px; border: 0; color: var(--color-white); background: var(--color-red); width: 30px; aspect-ratio: 1; font-size: 18px; border-radius: 50px; line-height: normal; cursor: pointer;}

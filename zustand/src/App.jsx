@@ -1,8 +1,16 @@
-import { Counter } from "./component/Counter"
+import './App.css';
+import { CounterStore } from './store/CounterStore';
 
-const App = () => {
+function App() {
+
+  const {count, inc} = CounterStore();
   return (
-    <Counter />
+    <>
+    <h1>Count : {count}</h1>
+    <button onClick={inc}>Increment</button>
+    <button>Decrement</button>
+    <button>Reset</button>
+    </>
   )
 }
 

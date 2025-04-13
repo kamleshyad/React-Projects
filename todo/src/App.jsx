@@ -1,9 +1,9 @@
-import { Addtask } from "./components/Addtask";
+import { Home } from "./routes/home/Home";
 
 const App = () => {
-  return (
-    <Addtask />
-  )
+    return(
+        <Home />
+    )
 }
 
 export default App;
