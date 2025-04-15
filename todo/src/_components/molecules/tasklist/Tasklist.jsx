@@ -3,7 +3,7 @@ import { SecondaryButton } from "../../atoms/buttons/Buttons";
 import { EditIcon } from "../../atoms/icons/Icon";
 import { DeleteIcon } from "../../atoms/icons/Icon";
 
-export const Tasklist = ({taskList}) => {
+export const Tasklist = ({taskList, onDelete}) => {
 
     return (
         <div className="tasklist">
@@ -19,12 +19,12 @@ export const Tasklist = ({taskList}) => {
                                 <div className="taskrightsec">
                                     <ul className="reset">
                                         <li>
-                                            <PrimaryButton buttonType="submit" customStyle={{fontSize : '16px', padding: '8px 12px'}}>
+                                            <PrimaryButton buttonType="submit" customStyle={{fontSize : '16px', padding: '8px 12px'}} >
                                                 <EditIcon />
                                             </PrimaryButton>
                                             </li>
                                         <li>
-                                            <SecondaryButton buttonType="submit" customStyle={{fontSize : '16px', padding: '8px 12px'}}>
+                                            <SecondaryButton buttonType="button" customStyle={{fontSize : '16px', padding: '8px 12px'}} onclick={() => onDelete(id)}>
                                                 <DeleteIcon />
                                             </SecondaryButton>
                                         </li>

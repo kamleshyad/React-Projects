@@ -9,6 +9,10 @@ const reducer = (state, action) => {
     switch(action.type){
         case 'add-task' :
             return [...state, createTask(action.payload.name)]
+        case 'delete-task' :
+            return state.filter( task => task.id !== action.payload.id);
+        default :
+            return state;
     }
 }
 
@@ -29,7 +33,9 @@ export const AddTask = () => {
         dispatch( {type: 'add-task', payload: {name: taskName}} )
     }
 
-    console.log("state", state)
+    const deleteTask = (taskId) => {
+        dispatch( {type: 'delete-task', payload: {id: taskId}} )
+    }
 
     return (
         <div className="todosec">
@@ -37,7 +43,7 @@ export const AddTask = () => {
                 <div className="todowrap">
                     <h1>Todo List</h1>
                     <TaskForm onAddtask={addTask}/>
-                    <Tasklist taskList={state}/>
+                    <Tasklist taskList={state} onDelete={deleteTask}/>
                 </div>
             </div>
         </div>
