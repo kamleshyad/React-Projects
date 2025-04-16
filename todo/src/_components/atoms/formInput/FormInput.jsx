@@ -1,7 +1,5 @@
-import React from 'react'
-
-export const TextInput = ( {inputType, placeHolder, inputValue, onChange={onChange} } ) => {
+export const Forminput = ({ inputType, placeHolder, inputValue, onchange }) => {
     return (
-        <input type={inputType} placeholder={placeHolder ? placeHolder : null} value={inputValue} onChange={onChange} />
+        <input type={inputType} placeholder={placeHolder ? placeHolder : null } value={inputValue} onChange={onchange}/>
     )
 }

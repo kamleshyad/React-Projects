@@ -1,10 +1,10 @@
-export const PrimaryButton = ({children = "Button Name", buttonType = "submit", customStyle= {}}) => {
+export const Primarybutton = ({children = "Button Name", buttonType, customStyle={}, onclick}) => {
     return (
-        <button type={buttonType} className='primarybtn' style={customStyle}>{children}</button>
+        <button type={buttonType} className='primarybtn' style={customStyle} onClick={onclick}>{children}</button>
     )
 }
 
-export const SecondaryButton = ({children = "Button Name", buttonType = "submit", customStyle= {}, onclick}) => {
+export const SecondaryButton = ({children = "Button Name", buttonType, customStyle= {}, onclick}) => {
     return (
         <button type={buttonType} className='secondarybtn' style={customStyle} onClick={onclick}>{children}</button>
     )

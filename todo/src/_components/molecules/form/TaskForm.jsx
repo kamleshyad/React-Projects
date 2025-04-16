@@ -1,16 +1,15 @@
+import { Forminput } from "../../atoms/forminput/FormInput";
+import { Primarybutton } from "../../atoms/buttons/Buttons";
 import { useState } from "react";
 
-import { TextInput } from "../../atoms/formInput/FormInput";
-import { PrimaryButton } from "../../atoms/buttons/Buttons";
-
-export const TaskForm = ({onAddtask}) => {
+export const Taskform = ({onAddtask}) => {
 
     const [input, setInput] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if(input.trim() === '') return;
 
-        if (input.trim() === '') return;
         onAddtask(input);
         setInput('');
     }
@@ -19,12 +18,12 @@ export const TaskForm = ({onAddtask}) => {
         <form className='todoform' onSubmit={handleSubmit}>
             <ul className="reset">
                 <li>
-                    <TextInput inputType="text" placeHolder="Enter Task" inputValue={input} onChange={(e) => setInput(e.target.value)} />
+                    <Forminput inputType="text" placeHolder="Enter Task" inputValue={input} onchange={ (e) => setInput(e.target.value) }/>
                 </li>
                 <li>
-                    <PrimaryButton buttonType="submit">Add Task</PrimaryButton>
+                    <Primarybutton buttonType="submit">Add Task</Primarybutton>
                 </li>
             </ul>
         </form>
-    );
-};
+    )
+}
