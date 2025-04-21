@@ -1,4 +1,4 @@
-import { Primarybutton } from "../../atoms/buttons/Buttons";
+import { PrimaryButton } from "../../atoms/buttons/Buttons";
 import { SecondaryButton } from "../../atoms/buttons/Buttons";
 
 export const ConfirmModal = ({message, onClose, onConfirm}) => {
@@ -11,10 +11,10 @@ export const ConfirmModal = ({message, onClose, onConfirm}) => {
                 <div className="btnsec">
                     <ul className="reset">
                         <li>
-                            <Primarybutton customStyle={{width : '80px', padding: '8px', fontSize: '14px'}} onClick={ () => onConfirm() }>Yes</Primarybutton>
+                            <PrimaryButton customStyle={{width : '80px', padding: '8px', fontSize: '14px'}} onClick={() => onConfirm()}>Yes</PrimaryButton>
                         </li>
                         <li>
-                            <SecondaryButton customStyle={{width : '80px', padding: '8px', fontSize: '14px'}} onClick={onClose} >No</SecondaryButton>
+                            <SecondaryButton customStyle={{width : '80px', padding: '8px', fontSize: '14px'}} onClick={onClose}>No</SecondaryButton>
                         </li>
                     </ul>
                 </div>

@@ -1,52 +1,75 @@
 import { useReducer, useState } from "react";
-import { toast } from "react-toastify";
-
 import { Taskform } from "../../molecules/form/Taskform";
 import { Tasklist } from "../../molecules/tasklist/Tasklist";
 import { ConfirmModal } from "../../molecules/modal/ConfirmModal";
+import { toast } from "react-toastify";
 
-const initialState = [];
+const initialState = {
+    tasks: [],
+    deleteId: null,
+    isConfirm: false
+};
 
 const reducer = (state, action) => {
     switch(action.type) {
         case 'add-task' :
-            return [...state, createNewtask(action.payload.taskName)];
-        case 'delete-task' :
-            return state.filter((task) => task.id !== action.payload.deleteTaskid )
+            return {
+                ...state,
+                tasks: [ ...state.tasks, createTask(action.payload.taskName) ],
+            }
+        case 'show-confirm-modal' :
+            return{
+                ...state,
+                deleteId: action.payload.id,
+                isConfirm: true
+            }
+        case 'hide-confirm-modal' :
+            return {
+                ...state,
+                deleteId: null,
+                isConfirm: false
+            }
+        case 'delete-task' : 
+            return {
+                ...state,
+                tasks: [state.tasks.filter((task) => task.id !== action.payload.taskId)],
+                deleteId: null,
+                isConfirm: false
+            }
         default :
             return state;
     }
 }
 
-const createNewtask = (taskName) => {
+const createTask = (task) => {
     return{
         id: Date.now(),
-        taskName: taskName,
+        taskname: task,
         status: false,
     }
 }
 
+
 export const Addtask = () => {
 
     const [ state, dispatch ] = useReducer(reducer, initialState);
-    const [ deleteId, setDeleteid ] = useState(null);
-    const [ isConfirmopen, setIsconfirmopen ] = useState(false);
 
     const addTask = (task) => {
         dispatch( {type: 'add-task', payload: {taskName: task}} );
-        toast.success("Task added Succesfully");
+        toast.success("Task Added Successfully");
     }
 
-    const getDeletetaskid = (taskId) => {
-        setDeleteid(taskId);
-        setIsconfirmopen(true) 
+    const getDeleteid = (getDeleteid) => {
+        dispatch({type: 'show-confirm-modal', payload: {id: getDeleteid}})
+    }
+
+    const closeModal = () => {
+        dispatch({type: 'hide-confirm-modal',})
     }
 
     const confirmDelete = () => {
-        dispatch({type: 'delete-task', payload: {deleteTaskid: deleteId}})
-        toast.success("Task deleted successfully");
-        setIsconfirmopen(false);
-        setDeleteid(null);
+        dispatch({type: 'delete-task', payload: {taskId: state.deleteId}});
+        toast.success("Task added Successfully");
     }
 
 
@@ -56,14 +79,14 @@ export const Addtask = () => {
                 <div className="todowrap">
                     <h1>Todo List</h1>
                     <Taskform onAddtask={addTask}/>
-                    <Tasklist taskList={state} onDeletetask={getDeletetaskid}/>
+                    <Tasklist taskList={state.tasks} getDeleteid={getDeleteid}/> 
                     {
-                        isConfirmopen && (
-                            <ConfirmModal message="Are you sure to delete" onClose={() => setIsconfirmopen(false)} onConfirm={confirmDelete}/>
+                        state.isConfirm && (
+                            <ConfirmModal message="Are you sure to Delete" onClose={closeModal} onConfirm={confirmDelete}/>
                         )
                     }
                 </div>
             </div>
         </div>
-    )
+    )   
 }
